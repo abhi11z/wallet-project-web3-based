@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="style.css">
 
-  <!-- Chart.js CDN - must load BEFORE app.js -->
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -20,16 +20,28 @@
 
   <main class="page">
 
-    <!-- NEON HEADING -->
+    <!-- NEON HEADING + TOOLBAR -->
     <header class="top neon-header">
-      <h1 class="neon-title">WEB3 <span>WALLET</span> DASHBOARD</h1>
+      <div class="title-row">
+        <h1 class="neon-title">WEB3 <span>WALLET</span> DASHBOARD</h1>
+        <div class="toolbar">
+          <label class="small-label">Theme</label>
+          <select id="themeSelect" class="input like theme-select" aria-label="Theme select">
+            <option value="neon">Neon Dark</option>
+            <option value="cyber">Cyberpunk</option>
+            <option value="light">Light</option>
+          </select>
+          <button id="themeToggle" class="btn">Toggle</button>
+        </div>
+      </div>
+
       <p class="neon-subtitle">Experience the Future of Blockchain</p>
     </header>
 
-    <!-- GRID: left wallet, right chart+calculator -->
+    <!-- GRID -->
     <div class="grid">
 
-      <!-- LEFT -->
+      <!-- LEFT COLUMN (WALLET) -->
       <div class="col left-col">
         <section class="card glass wallet-card">
 
@@ -47,7 +59,7 @@
 
           <div class="form-row">
             <label class="label">Wallet Address</label>
-            <div class="input like addr-row glow-input">
+            <div class="input like glow-input">
               <pre id="address" class="mono">—</pre>
             </div>
           </div>
@@ -66,45 +78,47 @@
             </div>
           </div>
 
-          <!-- NONCE + TX TODAY -->
+          <!-- NONCE FEATURE -->
           <div class="form-row">
-            <label class="label">Nonce (on-chain)</label>
+            <label class="label">Nonce (Transaction Count)</label>
             <div class="input like glow-input"><pre id="nonce" class="mono">—</pre></div>
           </div>
 
           <div class="form-row">
-            <label class="label">Transactions today (observed)</label>
+            <label class="label">Transactions Today</label>
             <div class="input like glow-input"><pre id="txToday" class="mono">—</pre></div>
           </div>
 
-          <div class="controls-row" style="margin-top:8px;">
+          <div class="controls-row" style="margin-top:10px;">
             <button id="refreshNonceBtn" class="btn">🔄 Refresh Nonce</button>
           </div>
 
         </section>
       </div>
 
-      <!-- RIGHT -->
+      <!-- RIGHT COLUMN (CHART + CALCULATOR) -->
       <div class="col right-col">
-        <!-- Chart Card -->
+
+        <!-- CHART -->
         <section class="card glass chart-card">
           <div class="card-header">
             <h3>📈 Crypto Market Chart</h3>
           </div>
+
           <p class="subtitle small">Price movement visualization</p>
 
           <div class="chart-wrap">
             <canvas id="marketChart"></canvas>
           </div>
 
-          <div class="controls-row" style="margin-top:12px;">
+          <div class="controls-row" style="margin-top:10px;">
             <button id="regenChart" class="btn">🔄 Refresh Chart</button>
           </div>
         </section>
 
-        <!-- Calculator Card -->
-        <section class="card glass calc-card" aria-labelledby="calc-title" style="margin-top:18px;">
-          <h3 id="calc-title">🔥 Multi-Chain Fee Calculator</h3>
+        <!-- CALCULATOR -->
+        <section class="card glass calc-card" style="margin-top:20px;">
+          <h3>🔥 Multi-Chain Fee Calculator</h3>
           <p class="subtitle small">Ethereum • Polygon • BNB Chain</p>
 
           <label class="label">Select Chain</label>
@@ -114,28 +128,55 @@
             <option value="bnb">BNB Chain</option>
           </select>
 
-          <label class="label">Amount (in native token)</label>
-          <input id="calcAmount" class="input like" placeholder="0.01" inputmode="decimal">
+          <label class="label">Amount (native)</label>
+          <input id="calcAmount" class="input like" placeholder="0.01">
 
           <label class="label">Gas Limit (default 21000)
             <button id="gasInfoBtn" class="info-btn">ℹ️</button>
           </label>
+
           <div class="gas-row">
             <input id="gasLimit" class="input like" value="21000">
-            <div id="gasInfo" class="tooltip">21000 = default gas limit for wallet-to-wallet transfer.</div>
+            <div id="gasInfo" class="tooltip">
+              21000 = standard gas limit for wallet-to-wallet transfer.
+            </div>
           </div>
 
           <button id="calcBtn" class="btn primary" style="margin-top:14px;">Calculate Fee</button>
 
-          <div class="results" style="margin-top:12px;">
+          <div class="results">
             <p class="mono" id="gasPriceOut">Gas Price: —</p>
             <p class="mono" id="gasFeeOut">Gas Fee: —</p>
             <p class="mono" id="totalCostOut">Total Cost: —</p>
           </div>
         </section>
-      </div>
 
-    </div><!-- /grid -->
+      </div>
+    </div>
+
+    <!-- USE CASES + DESCRIPTION -->
+    <section class="card glass usecase-card" style="margin-top:35px;">
+
+      <h3 class="neon-small-title">📘 Project Description</h3>
+      <p class="project-desc">
+        This Web3 Wallet Dashboard allows users to connect their MetaMask wallet,
+        view their balance, check transaction count (nonce), estimate gas fees
+        across Ethereum, Polygon, and BNB Chain, and visualize crypto price 
+        movements using a simulated market chart — all without any backend or API.
+        The entire system runs directly in the browser and fully decentralized.
+      </p>
+
+      <h3 class="neon-small-title" style="margin-top:25px;">🟦 Use Cases</h3>
+
+      <ul class="usecases">
+        <li class="usecard"><strong>1. Connect Crypto Wallet (MetaMask Integration)</strong></li>
+        <li class="usecard"><strong>2. View Wallet Balance Instantly</strong></li>
+        <li class="usecard"><strong>3. Check On-Chain Transaction Count (Nonce)</strong></li>
+        <li class="usecard"><strong>4. Multi-Chain Gas Fee Estimation</strong></li>
+        <li class="usecard"><strong>5. Crypto Market Chart Visualization</strong></li>
+      </ul>
+
+    </section>
 
   </main>
 
