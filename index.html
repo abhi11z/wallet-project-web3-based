@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <title>Web3 Demo — Wallet Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js CDN - must load BEFORE app.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="37c01470-9805-4a37-94ab-5d1622a82f42.mp4" type="video/mp4">
+  </video>
+
+  <canvas id="particles"></canvas>
+
+  <main class="page">
+
+    <!-- NEON HEADING -->
+    <header class="top neon-header">
+      <h1 class="neon-title">WEB3 <span>WALLET</span> DASHBOARD</h1>
+      <p class="neon-subtitle">Experience the Future of Blockchain</p>
+    </header>
+
+    <!-- GRID: left wallet, right chart+calculator -->
+    <div class="grid">
+
+      <!-- LEFT -->
+      <div class="col left-col">
+        <section class="card glass wallet-card">
+
+          <div class="card-header">
+            <h3>Wallet Status</h3>
+            <span id="statusPill" class="pill not">● Not Connected</span>
+          </div>
+
+          <div class="controls-row">
+            <button id="connectBtn" class="btn primary">🔗 Connect Wallet</button>
+            <button id="balanceBtn" class="btn">💰 Show Balance</button>
+            <button id="signBtn" class="btn">✍️ Sign Message</button>
+            <button id="disconnectBtn" class="btn ghost">⛔ Disconnect</button>
+          </div>
+
+          <div class="form-row">
+            <label class="label">Wallet Address</label>
+            <div class="input like addr-row glow-input">
+              <pre id="address" class="mono">—</pre>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="label">ETH Balance</label>
+            <div class="input like glow-input">
+              <pre id="balance" class="mono">—</pre>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="label">Signed Message</label>
+            <div class="input like big glow-input">
+              <pre id="signed" class="mono">Click 'Sign Message'</pre>
+            </div>
+          </div>
+
+          <!-- NONCE + TX TODAY -->
+          <div class="form-row">
+            <label class="label">Nonce (on-chain)</label>
+            <div class="input like glow-input"><pre id="nonce" class="mono">—</pre></div>
+          </div>
+
+          <div class="form-row">
+            <label class="label">Transactions today (observed)</label>
+            <div class="input like glow-input"><pre id="txToday" class="mono">—</pre></div>
+          </div>
+
+          <div class="controls-row" style="margin-top:8px;">
+            <button id="refreshNonceBtn" class="btn">🔄 Refresh Nonce</button>
+          </div>
+
+        </section>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col right-col">
+        <!-- Chart Card -->
+        <section class="card glass chart-card">
+          <div class="card-header">
+            <h3>📈 Crypto Market Chart</h3>
+          </div>
+          <p class="subtitle small">Price movement visualization</p>
+
+          <div class="chart-wrap">
+            <canvas id="marketChart"></canvas>
+          </div>
+
+          <div class="controls-row" style="margin-top:12px;">
+            <button id="regenChart" class="btn">🔄 Refresh Chart</button>
+          </div>
+        </section>
+
+        <!-- Calculator Card -->
+        <section class="card glass calc-card" aria-labelledby="calc-title" style="margin-top:18px;">
+          <h3 id="calc-title">🔥 Multi-Chain Fee Calculator</h3>
+          <p class="subtitle small">Ethereum • Polygon • BNB Chain</p>
+
+          <label class="label">Select Chain</label>
+          <select id="chainSelect" class="input like">
+            <option value="eth">Ethereum</option>
+            <option value="polygon">Polygon</option>
+            <option value="bnb">BNB Chain</option>
+          </select>
+
+          <label class="label">Amount (in native token)</label>
+          <input id="calcAmount" class="input like" placeholder="0.01" inputmode="decimal">
+
+          <label class="label">Gas Limit (default 21000)
+            <button id="gasInfoBtn" class="info-btn">ℹ️</button>
+          </label>
+          <div class="gas-row">
+            <input id="gasLimit" class="input like" value="21000">
+            <div id="gasInfo" class="tooltip">21000 = default gas limit for wallet-to-wallet transfer.</div>
+          </div>
+
+          <button id="calcBtn" class="btn primary" style="margin-top:14px;">Calculate Fee</button>
+
+          <div class="results" style="margin-top:12px;">
+            <p class="mono" id="gasPriceOut">Gas Price: —</p>
+            <p class="mono" id="gasFeeOut">Gas Fee: —</p>
+            <p class="mono" id="totalCostOut">Total Cost: —</p>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- /grid -->
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
